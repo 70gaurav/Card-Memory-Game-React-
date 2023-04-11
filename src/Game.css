@@ -1,0 +1,25 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.wrapper{
+     background:url("./images/max.jpg") no-repeat fixed center / cover;
+     height: 100vh;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+}
+.start{
+    background: linear-gradient(to right, #1e3c72, #2a5298);
+    padding: 1rem; 
+    border-radius: 10px;
+    color: #fff;
+    font-size: large;
+    box-shadow: 5px 5px 5px brown;
+}
+.game{
+    background: linear-gradient(to right, #7474bf, #348ac7);
+    height: 100vh;
+    
+}

@@ -10,6 +10,7 @@
      justify-content: center;
      align-items: center;
 }
+
 .start{
     background: linear-gradient(to right, #1e3c72, #2a5298);
     padding: 1rem; 
@@ -79,4 +80,46 @@
     color: white;
     transform: rotateY(180deg);
   }
+  .score{
+    background:url("./images/score.png") no-repeat fixed center / cover;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .score h1{
+    color: white;
+  }
+  .score button{
+    padding: 0.5rem;
+    border-radius: 10px;
+    background-color: #ffc837;
+    font-size: 22px;
+  }
+  @media all and (max-width: 1000px) {
+    .box{
+      width: 70%;
+      height: 70%;
+    }
+  }
+  @media all and (max-width: 650px) {
+    .box{
+      width: 90%;
+      height: 90%;
+    }
+    .card {
+      width: 100px;
+      height: 120px;
+      
+    }
+  }
+  @media all and (max-width: 400px) {
+    .card {
+      width: 80px;
+      height: 100px;
+      
+    }
+  }
+  
   

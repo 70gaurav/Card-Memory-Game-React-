@@ -1,102 +1,111 @@
-import React, { useEffect, useState } from 'react'
-import one from "./images/1.avif"
-import two from "./images/2.avif"
-import three from "./images/3.avif"
-import four from "./images/4.webp"
-import five from "./images/5.avif"
-import six from "./images/6.webp"
-import mark from "./images/mark.webp"
+import React, { useEffect, useState } from 'react';
+import one from "./images/1.avif";
+import two from "./images/2.avif";
+import three from "./images/3.avif";
+import four from "./images/4.webp";
+import five from "./images/5.avif";
+import six from "./images/6.webp";
+import mark from "./images/mark.webp";
+import { useNavigate } from 'react-router-dom';
 
 function Game() {
-  const data = [{
-    image: one,
-    id: "one"
-  },
-  {
-    image: two,
-    id: "two"
-  },
-  {
-    image: three,
-    id: "three"
-  },
-  {
-    image: four,
-    id: "four"
-  },
-  {
-    image: five,
-    id: "five"
-  },
-  {
-    image: six,
-    id: "six"
-  },
-  {
-    image: one,
-    id: "one"
-  },
-  {
-    image: two,
-    id: "two"
-  },
-  {
-    image: three,
-    id: "three"
-  },
-  {
-    image: four,
-    id: "four"
-  },
-  {
-    image: five,
-    id: "five"
-  },
-  {
-    image: six,
-    id: "six"
-  }
-  ]
+  const navigate = useNavigate()
+  const [data, setData] = useState([
+    {
+      image: one,
+      id: "one",
+    },
+    {
+      image: two,
+      id: "two",
+    },
+    {
+      image: three,
+      id: "three",
+    },
+    {
+      image: four,
+      id: "four",
+    },
+    {
+      image: five,
+      id: "five",
+    },
+    {
+      image: six,
+      id: "six",
+    },
+    {
+      image: one,
+      id: "one",
+    },
+    {
+      image: two,
+      id: "two",
+    },
+    {
+      image: three,
+      id: "three",
+    },
+    {
+      image: four,
+      id: "four",
+    },
+    {
+      image: five,
+      id: "five",
+    },
+    {
+      image: six,
+      id: "six",
+    },
+  ]);
+  const [flip, setFlip] = useState([]);
+  const [match, setMatch] = useState([]);
+  const [moves, setMoves] = useState(0);
 
-  const [flip, setflip] = useState([])
-  const [match, setMatch] = useState([])
-  const [moves, setMoves] = useState(0)
+  useEffect(() => {
+    for (let i = data.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [data[i], data[j]] = [data[j], data[i]];
+    }
+  }, []);
 
-
-useEffect(() => {
-  
-  for (let i = data.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [data[i], data[j]] = [data[j], data[i]];
-  }
-} , [])
- useEffect(() => {
-  if(match.length === 2){
-    if(match[0] === match[1]){
-      console.log("match confirmed")
-      const newdata =data.filter((card) => {
-        return card.id !== match[0]
-      })
-      console.log(newdata)
-
+  useEffect(() => {
+   setTimeout(() => {
+    if (match.length === 2) {
+      if (match[0] === match[1]) {
+        setFlip([]);  
+       setTimeout(() => {
+        console.log("match confirmed");
+        
+        const newdata = data.filter((card) => {
+          return card.id !== match[0];
+        });
+       if(newdata.length > 0){
+        setData(newdata); 
+        setMatch([]); 
+       }
+       else{
+        navigate("/Score")
+       }
+       }, 1000);
        
+      } else {
+          setFlip([]);
+          setMatch([]);
+       
+      }
     }
-    else{
-     setTimeout(() => { setflip("")
-     setMatch("")
-    
-    },500)
-
-    }
-  }
- } , [match])
+   },500);
+  }, [data, match]);
 
   function flipHandle(index,id) {
       if(flip.length < 2 ){
-        setflip([...flip,index])
+        setFlip([...flip,index])
       }
       else{
-        setflip("")
+        setFlip("")
       }
       if(match.length < 2){
         setMatch([...match,id])

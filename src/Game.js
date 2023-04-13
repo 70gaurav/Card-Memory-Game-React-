@@ -58,7 +58,9 @@ function Game() {
   }
   ]
 
-  const [flip, setflip] = useState(null)
+  const [flip, setflip] = useState(false)
+  const [match, setMatch] = useState([])
+  const [moves, setMoves] = useState(0)
 
 
 useEffect(() => {
@@ -68,25 +70,36 @@ useEffect(() => {
     [data[i], data[j]] = [data[j], data[i]];
   }
 } , [])
-
-  function flipHandle(index) {
-    if(flip === null){
-      setflip(index)
-    }
-    else{
-      setflip(null)
+ useEffect(() => {
+  if(match.length === 2){
+    if(match[0] === match[1]){
+      console.log("match confirmed")
     }
   }
-  console.log(flip)
+ } , [match])
+
+  function flipHandle(index,id) {
+      setflip(index)
+      if(match.length < 2){
+        setMatch([...match,id])
+       
+      }
+      
+    }
+
+  // console.log(flip)
+  console.log(match)
+  console.log(moves)
   return (
 
 
     <div className='game'>
+      <h1>Moves:<span>{moves}</span></h1>
       <div className='box'>
         {
           data.map((element, index) => {
             return (
-              <div className="card" key={index} onClick={()=> {flipHandle(index)}} >
+              <div className="card" key={index} onClick={()=> {flipHandle(index,element.id);setMoves(moves + 1)}} >
                 <div className="card-inner" style={{ transform: index === flip ? 'rotateY(180deg)' : "none"}}>
                   <div className="card-front">
                     <img src={mark}></img>

@@ -115,7 +115,7 @@ useEffect(() => {
 
 
     <div className='game'>
-      <h1>Moves:<span>{moves}</span></h1>
+      {/* <h1>Moves:<span>{moves}</span></h1> */}
       <div className='box'>
         {
           data.map((

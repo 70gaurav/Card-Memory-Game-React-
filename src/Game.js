@@ -117,7 +117,7 @@ function Game() {
       
     }
 
-  // console.log(flip)
+  console.log(flip)
   console.log(match)
   console.log(moves)
   return (

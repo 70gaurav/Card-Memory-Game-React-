@@ -83,7 +83,7 @@
     transform: rotateY(180deg);
   }
   .score{
-    background:url("./images/score.png") no-repeat fixed center / cover;
+    background: linear-gradient(to right, #4e54c8, #8f94fb);
     height: 100vh;
     display: flex;
     align-items: center;
@@ -114,9 +114,6 @@
       width: 100px;
       height: 120px;
       
-    }
-    .wrapper{
-      background:url("./images/small.avif") no-repeat fixed center ;
     }
   }
   @media all and (max-width: 400px) {

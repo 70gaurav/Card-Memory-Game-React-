@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import one from "./images/1.avif";
 import two from "./images/2.avif";
 import three from "./images/3.avif";
@@ -7,6 +7,7 @@ import five from "./images/5.avif";
 import six from "./images/6.webp";
 import mark from "./images/mark.webp";
 import { useNavigate } from 'react-router-dom';
+import { cardContext } from './App';
 
 function Game() {
   const navigate = useNavigate()
@@ -62,7 +63,7 @@ function Game() {
   ]);
   const [flip, setFlip] = useState([]);
   const [match, setMatch] = useState([]);
-  const [moves, setMoves] = useState(0);
+  const {moves, setMoves} =useContext(cardContext)
 
   useEffect(() => {
     for (let i = data.length - 1; i > 0; i--) {
@@ -73,64 +74,62 @@ function Game() {
 
   useEffect(() => {
    setTimeout(() => {
-    if (match.length === 2) {
-      if (match[0] === match[1]) {
-        setFlip([]);  
-       setTimeout(() => {
-        console.log("match confirmed");
-        
-        const newdata = data.filter((card) => {
-          return card.id !== match[0];
-        });
-       if(newdata.length > 0){
-        setData(newdata); 
-        setMatch([]); 
-       }
-       else{
-        navigate("/Score")
-       }
-       }, 1000);
-       
-      } else {
+    if (match.length === 2 ) {
+      setMoves(moves +1)
+      if(flip[0] !== flip[1]){
+        if (match[0] === match[1]) {
+          setFlip([]);  
+         setTimeout(() => {
+          console.log("match confirmed");
+          
+          const newdata = data.filter((card) => {
+            return card.id !== match[0];
+          });
+         if(newdata.length > 0){
+          setData(newdata); 
+          setMatch([]); 
+         }
+         else{
+          navigate("/Score")
+         }
+         }, 1000);
+         
+        }
+        else {
           setFlip([]);
           setMatch([]);
        
       }
+      }
+     
     }
    },500);
   }, [data, match]);
 
   function flipHandle(index,id) {
-      if(flip.length < 2 ){
+      if(flip.length < 2 && match.length < 2){
         setFlip([...flip,index])
+        setMatch([...match,id])
       }
+     
       else{
         setFlip("")
-      }
-      if(match.length < 2){
-        setMatch([...match,id])
-       
-      }
-      else{
         setMatch("")
+      
       }
       
     }
-
-  console.log(flip)
-  console.log(match)
-  console.log(moves)
   return (
 
 
     <div className='game'>
-      {/* <h1>Moves:<span>{moves}</span></h1> */}
+      <div className='moves'><h1>Moves : {moves}</h1></div>
       <div className='box'>
         {
           data.map((
             element, index) => {
             return (
-              <div className="card" key={index} onClick={()=> {flipHandle(index,element.id);setMoves(moves + 0.5)}} >
+              <div className="card" key={index} onClick={()=> {flipHandle(index,element.id)}} >
                 <div className="card-inner" style={{ transform: flip.includes(index) ? 'rotateY(180deg)' : "none"}}>
                   <div className="card-front">
                     <img src={mark}></img>
@@ -145,7 +144,7 @@ function Game() {
         }
       </div>
     </div>
-  )
+)
 }
 
 export default Game

@@ -19,7 +19,7 @@
     border-radius: 10px;
     color: #fff;
     font-size: large;
-    box-shadow: 5px 5px 5px brown;
+    box-shadow: 5px 5px 5px black;
 }
 .game{
     background: linear-gradient(to right, #7474bf, #348ac7);
@@ -89,6 +89,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    gap: 2rem;
   }
   .score h1{
     color: white;
@@ -98,6 +99,20 @@
     border-radius: 10px;
     background-color: #ffc837;
     font-size: 22px;
+    box-shadow: 5px 5px 5px white;
+  }
+  .moves{
+    background-color: #fff;
+    padding: 0.5rem;
+    text-align: center;
+    border-radius: 10px;
+    margin: 0.5rem;
+  }
+  .score h2 span{
+    background-color: black;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 10px;
   }
   @media all and (max-width: 1000px) {
     .box{

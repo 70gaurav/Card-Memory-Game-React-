@@ -73,63 +73,56 @@ function Game() {
   }, []);
 
   useEffect(() => {
-   setTimeout(() => {
-    if (match.length === 2 ) {
-      setMoves(moves +1)
-      if(flip[0] !== flip[1]){
-        if (match[0] === match[1]) {
-          setFlip([]);  
-         setTimeout(() => {
-          console.log("match confirmed");
-          
-          const newdata = data.filter((card) => {
-            return card.id !== match[0];
-          });
-         if(newdata.length > 0){
-          setData(newdata); 
-          setMatch([]); 
-         }
-         else{
-          navigate("/Score")
-         }
-         }, 1000);
-         
+    setTimeout(() => {
+      if (match.length === 2 ) {
+        setMoves(moves +1)
+        if(flip[0] !== flip[1]){
+          if (match[0] === match[1]) {
+            setFlip([]);
+            setTimeout(() => {
+              console.log("match confirmed");
+              
+              const newdata = data.map((card) => {
+                if (card.id === match[0]) {
+                  return {...card, matched: true};
+                }
+                return card;
+              });
+              if (newdata.every(card => card.matched)) {
+                navigate("/Score")
+              } else {
+                setData(newdata); 
+                setMatch([]); 
+              }
+            }, 1000);
+          }
+          else {
+            setFlip([]);
+            setMatch([]);
+          }
         }
-        else {
-          setFlip([]);
-          setMatch([]);
-       
       }
-      }
-     
-    }
-   },500);
+    }, 500);
   }, [data, match]);
+  
 
   function flipHandle(index,id) {
-      if(flip.length < 2 && match.length < 2){
-        setFlip([...flip,index])
-        setMatch([...match,id])
-      }
-     
-      else{
-        setFlip("")
-        setMatch("")
-      
-      }
-      
+    if (flip.length < 2 && match.length < 2){
+      setFlip([...flip,index])
+      setMatch([...match,id])
+    } else {
+      setFlip([])
+      setMatch([])
     }
+  }
+
   return (
-
-
     <div className='game'>
       <div className='moves'><h1>Moves : {moves}</h1></div>
       <div className='box'>
-        {
-          data.map((
-            element, index) => {
-            return (
-              <div className="card" key={index} onClick={()=> {flipHandle(index,element.id)}} >
+        {data.map((element, index) => {
+          return (
+            <div className={`card${element.matched ? ' matched' : ''}`} key={index} onClick={()=> {flipHandle(index,element.id)}} >
                 <div className="card-inner" style={{ transform: flip.includes(index) ? 'rotateY(180deg)' : "none"}}>
                   <div className="card-front">
                     <img src={mark}></img>

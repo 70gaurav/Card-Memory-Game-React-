@@ -113,6 +113,10 @@
     color: white;
     padding: 0.5rem;
     border-radius: 10px;
+    box-shadow: 5px 5px 5px grey;
+  }
+  .score h2{
+    line-height: 3rem;
   }
  
   @media all and (max-width: 1000px) {

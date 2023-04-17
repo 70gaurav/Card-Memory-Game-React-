@@ -79,7 +79,7 @@ function Game() {
         if(flip[0] !== flip[1]){
           if (match[0] === match[1]) {
             setFlip([]);
-            setTimeout(() => {
+           
               console.log("match confirmed");
               
               const newdata = data.map((card) => {
@@ -94,7 +94,7 @@ function Game() {
                 setData(newdata); 
                 setMatch([]); 
               }
-            }, 1000);
+           
           }
           else {
             setFlip([]);

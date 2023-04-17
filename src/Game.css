@@ -131,6 +131,9 @@
       height: 120px;
       
     }
+    .score{
+     padding: 2.5rem;
+    }
   }
   @media all and (max-width: 400px) {
     .card {
